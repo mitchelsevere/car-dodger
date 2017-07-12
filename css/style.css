@@ -1,0 +1,43 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #F0E68C;
+}
+
+#container {
+    width: 900px;
+    height: 100vh;
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.street {
+    width: 300px;
+    height: 100vh;
+    background: #FFA07A;
+}
+
+.line {
+    border: 6px solid black;
+}
+
+#car {
+    height: 180px;
+    width: 100px;
+    background: #DC143C;
+    position: absolute;
+    bottom: 10px;
+    left: 100px;
+}
+
+#othercar {
+    height: 180px;
+    width: 100px;
+    background: #663399;
+    position: absolute;
+    bottom: 10px;
+    left: 100px;
+}

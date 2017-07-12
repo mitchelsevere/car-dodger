@@ -1,7 +1,9 @@
 const MAIN_CAR = document.querySelector('#car');
 const OTHER_CAR = document.querySelector('#othercar');
 let carPosition = 100;
-let otherCarPosition = 0;
+let otherCarPosition = -200;
+let carSpawnPosition = [100, 400, 700];
+let random = Math.floor(Math.random() * carSpawnPosition.length);
 
 
     document.addEventListener('keyup', function(event) {
@@ -20,7 +22,14 @@ let otherCarPosition = 0;
 
     function carSpawn() {
         OTHER_CAR.style.top = `${otherCarPosition}px`;
-        setTimeout(carSpawn, 10000);
+        OTHER_CAR.style.left = `${carSpawnPosition[random]}px`;
+        setTimeout(carSpawn, 1000);
+    } 
+
+    function carMove() {
+        carSpawn();
+        OTHER_CAR.style.top = `${otherCarPosition += 100}px`;
+        setTimeout(carMove, 1000);
     }
 
-    carSpawn();
+    carMove();
