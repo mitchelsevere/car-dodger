@@ -9,8 +9,6 @@ let otherCarPosition = -200;
 let carSpawnPositions = [100, 400, 700];
 let otherCars = [truck, van, mini, sedan];
 
-let randomPosition = randomInt(carSpawnPositions);
-let randomCar = randomInt(otherCars);
 
 // Referenced J's div racer logic for the keyup function
 function mainCarMove() {
@@ -29,19 +27,20 @@ function mainCarMove() {
     });
 }
 
-    function carSpawn() {
-        console.log(randomCar);
-        console.log(randomPosition);
-        currentCar = otherCars[randomCar];
-        currentCar.style.left = `${carSpawnPositions[randomPosition]}px`;
+    function otherCarSpawn() {
+        currentCar = otherCars[randomInt(otherCars)];
+        currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}px`;
         currentCar.style.top = `${otherCarPosition}px`;
-        carMove();
+        otherCarMove();
+        setTimeout(otherCarSpawn, 4000);
     } 
 
-    carSpawn();
+otherCarSpawn();
 
-    function carMove() {
-        let animate = window.requestAnimationFrame(carMove);
+
+    function otherCarMove() {
+        // Request Animation Resource https://www.youtube.com/watch?v=rNsC1VI9388
+        let animate = window.requestAnimationFrame(otherCarMove);
         if (otherCarPosition > 800) {
             console.log('hello');
             otherCarPosition = -200;
