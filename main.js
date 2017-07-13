@@ -3,7 +3,9 @@ let truck = document.querySelector('#truck');
 let van = document.querySelector('#mini-van');
 let mini = document.querySelector('#mini-truck');
 let sedan = document.querySelector('#car');
+let lines = document.querySelectorAll('.line');
 
+let linesPosition = -200;
 let carPosition = 100;
 let otherCarPosition = -200;
 let carSpawnPositions = [100, 400, 700];
@@ -28,9 +30,12 @@ function mainCarMove() {
 }
 
     function otherCarSpawn() {
+        for (let i = 0; i < otherCars.length; i++) {
+            otherCars[i].style.top = `${otherCarPosition}px`;
+        }
+
         currentCar = otherCars[randomInt(otherCars)];
         currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}px`;
-        currentCar.style.top = `${otherCarPosition}px`;
         otherCarMove();
         setTimeout(otherCarSpawn, 4000);
     } 
@@ -41,8 +46,8 @@ otherCarSpawn();
     function otherCarMove() {
         // Request Animation Resource https://www.youtube.com/watch?v=rNsC1VI9388
         let animate = window.requestAnimationFrame(otherCarMove);
-        if (otherCarPosition > 800) {
-            console.log('hello');
+        
+        if (otherCarPosition > 850) {
             otherCarPosition = -200;
             cancelAnimationFrame(animate);
         } else {
@@ -55,3 +60,16 @@ otherCarSpawn();
     }
 
     mainCarMove();
+
+    function streetMove() {
+        let animate = window.requestAnimationFrame(streetMove);
+        for (let i = 0; i < lines.length; i++) {
+            if (linesPosition > 30) {
+                linesPosition = -200;
+            } else {
+                lines[i].style.top = `${linesPosition += 0.5}px`;
+            }  
+        }  
+    }
+
+    streetMove();
