@@ -33,11 +33,10 @@ function mainCarMove() {
         for (let i = 0; i < otherCars.length; i++) {
             otherCars[i].style.top = `${otherCarPosition}px`;
         }
-
         currentCar = otherCars[randomInt(otherCars)];
         currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}px`;
         otherCarMove();
-        setTimeout(otherCarSpawn, 4000);
+        setTimeout(otherCarSpawn, 8000);
     } 
 
 otherCarSpawn();
@@ -53,6 +52,7 @@ otherCarSpawn();
         } else {
             currentCar.style.top = `${otherCarPosition += 5}px`;
         }
+        checkCollision();
     }
 
     function randomInt(arr) {
@@ -73,3 +73,10 @@ otherCarSpawn();
     }
 
     streetMove();
+
+    function checkCollision() {
+        if (otherCarPosition === 440 && currentCar.style.left === mainCar.style.left) {
+            console.log('collision');
+            alert('Collision');
+        }
+    }
