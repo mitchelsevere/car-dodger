@@ -22,10 +22,10 @@ Lane lines
 Car is on screen
 Car can move
 Random car prints on screen in a random lane
+Cars respawning on screen
+Collision detection
+Dashed lines 
 
 What's not working / added
-Collision detection
-Cars respawning on screen
 Speed Increase
-Dashed lines 
 Car graphics
