@@ -15,7 +15,7 @@ let otherCars = [truck, van, mini, sedan];
 
 // Positioning
 let carPosition = 16; // Main Car Starting Position // X-Axis
-let otherCarPosition = -200; // Y-Axis
+let otherCarPosition = -300; // Y-Axis
 let carSpawnPositions = [16, 42, 68]; // X-Axis
 let lineTopPosition = -300;
 let lineMidPosition = 100;
@@ -25,21 +25,44 @@ let lineBotPosition = 500;
 let carSpeed = 1.5;
 let lineSpeed = 1.5;
 
+// Counter 
+let time = 0;
+let score = 0;
+
 /**** FUNCTIONS *****/ 
+let timer = setInterval(function() {
+    time++;
+    score++;
+    console.log(`Timer: ${time}`);
+    console.log(`Score: ${score}`);
+    if (time % 10 === 0) {
+        console.log('Hi Nik. You look good!');
+    }
+}, 1000);
+
 // Referenced J's div racer for the keyup function
 function mainCarMove() {
     document.addEventListener('keyup', function(event) {
+        
         if (event.keyCode === 39) {
             if (carPosition < 50) {
                 carPosition += 26;
                 mainCar.style.left = `${carPosition}%`;
+                mainCar.style.bottom = `${12}%`;
+                mainCar.style.transform = 'rotate(45deg)';
             }
         } else if (event.keyCode === 37) {
             if (carPosition > 16) {
                 carPosition -= 26;
                 mainCar.style.left = `${carPosition}%`;
+                mainCar.style.bottom = `${12}%`;
+                mainCar.style.transform = 'rotate(-45deg)';
             }
         }
+        setTimeout(function() {
+            mainCar.style.transform = 'rotate(0deg)';
+            mainCar.style.bottom = `${5}%`;
+        }, 500);
     });
 }
 
@@ -49,11 +72,13 @@ mainCarMove();
 function otherCarSpawn() {
     for (let i = 0; i < otherCars.length; i++) {
         otherCars[i].style.top = `${otherCarPosition}px`;
+        otherCars[i].style.display = 'none';
     }
         currentCar = otherCars[randomInt(otherCars)];
+        currentCar.style.display = 'flex';
         currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
+        // console.log('New car alert!');
 
-        console.log('New car alert!');
         var interval = setTimeout(otherCarSpawn, 5000);
     } 
 
@@ -63,8 +88,8 @@ otherCarSpawn();
 function otherCarMove() {
     // Request Animation Resource https://www.youtube.com/watch?v=rNsC1VI9388
     let animate = window.requestAnimationFrame(otherCarMove);
-    if (otherCarPosition > 850) {
-        otherCarPosition = -200;
+    if (otherCarPosition > 900) {
+        otherCarPosition = -300;
         cancelAnimationFrame(animate);
     } else {
         currentCar.style.top = `${otherCarPosition += carSpeed}px`;
@@ -111,3 +136,7 @@ function checkCollision() {
 function randomInt(arr) {
     return Math.floor(Math.random() * arr.length);
 }
+
+
+
+
