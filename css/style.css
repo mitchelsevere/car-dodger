@@ -6,38 +6,60 @@ body {
     background: #F0E68C;
 }
 
-#container {
+#game-screen {
     width: 900px;
-    height: 100vh;
+    height: 800px;
     display: flex;
     position: relative;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .street {
     width: 300px;
-    height: 100vh;
+    height: 800px;
     background: #FFA07A;
 }
 
+.street-line {
+    height: 900px;
+    width: 6px;
+    display: flex;
+    background: #FFA07A;
+    flex-direction: column;
+}
+
 .line {
-    border: 6px solid black;
+    background: #F4D03F;
+    height: 500px;
+    width: 6px;
+    margin-top: 5px;
+    position: relative;
 }
 
-#car {
+#audi {
     height: 180px;
     width: 100px;
-    background: #DC143C;
     position: absolute;
     bottom: 10px;
     left: 100px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    transition: 1000ms;
 }
 
-#othercar {
+.cars img {
+    height: 180px;
+    width: auto;
+}
+
+#truck, #mini-van, #mini-truck, #car {
     height: 180px;
     width: 100px;
-    background: #663399;
     position: absolute;
     bottom: 10px;
     left: 100px;
+    display: flex;
+    justify-content: center;
 }
