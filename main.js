@@ -14,29 +14,29 @@ let lines = document.querySelectorAll('.line');
 let otherCars = [truck, van, mini, sedan];
 
 // Positioning
-let carPosition = 18.75;
-let otherCarPosition = -200;
-let carSpawnPositions = [18.75, 43.75, 68.75];
-let lineTopPosition = -200;
-let lineMidPosition = 0;
-let lineBotPosition = 200;
+let carPosition = 16; // Main Car Starting Position // X-Axis
+let otherCarPosition = -200; // Y-Axis
+let carSpawnPositions = [16, 42, 68]; // X-Axis
+let lineTopPosition = -300;
+let lineMidPosition = 100;
+let lineBotPosition = 500;
 
 // Speed 
 let carSpeed = 1.5;
 let lineSpeed = 1.5;
 
-
-// Referenced J's div racer logic for the keyup function
+/**** FUNCTIONS *****/ 
+// Referenced J's div racer for the keyup function
 function mainCarMove() {
     document.addEventListener('keyup', function(event) {
         if (event.keyCode === 39) {
             if (carPosition < 50) {
-                carPosition += 25;
+                carPosition += 26;
                 mainCar.style.left = `${carPosition}%`;
             }
         } else if (event.keyCode === 37) {
-            if (carPosition > 18.75) {
-                carPosition -= 25;
+            if (carPosition > 16) {
+                carPosition -= 26;
                 mainCar.style.left = `${carPosition}%`;
             }
         }
@@ -51,10 +51,9 @@ function otherCarSpawn() {
         otherCars[i].style.top = `${otherCarPosition}px`;
     }
         currentCar = otherCars[randomInt(otherCars)];
-        currentCar2 = otherCars[randomInt(otherCars)];
         currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
-        currentCar2.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
-        otherCarMove();
+
+        console.log('New car alert!');
         var interval = setTimeout(otherCarSpawn, 5000);
     } 
 
@@ -76,20 +75,20 @@ function otherCarMove() {
 // Street line movement
 function streetLineMove() {
     let animate = window.requestAnimationFrame(streetLineMove);
-    if (lineTopPosition > 400) {
-        lineTopPosition = -200;
+    if (lineTopPosition > 900) {
+        lineTopPosition = -300;
     } else {
         lineTopLeft.style.top = `${lineTopPosition += lineSpeed}px`;
         lineTopRight.style.top = `${lineTopPosition += lineSpeed}px`;
     }  
-    if (lineMidPosition > 400) {
-        lineMidPosition = -200;
+    if (lineMidPosition > 900) {
+        lineMidPosition = -300;
     } else {
         lineMidLeft.style.top = `${lineMidPosition += lineSpeed}px`;
         lineMidRight.style.top = `${lineMidPosition += lineSpeed}px`;
     }  
-    if (lineBotPosition > 400) {
-        lineBotPosition = -200;
+    if (lineBotPosition > 900) {
+        lineBotPosition = -300;
     } else {
         lineBotLeft.style.top = `${lineBotPosition += lineSpeed}px`;
         lineBotRight.style.top = `${lineBotPosition += lineSpeed}px`;
