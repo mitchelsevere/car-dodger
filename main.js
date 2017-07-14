@@ -1,30 +1,43 @@
-let mainCar = document.querySelector('#audi');
-let truck = document.querySelector('#truck');
-let van = document.querySelector('#mini-van');
-let mini = document.querySelector('#mini-truck');
-let sedan = document.querySelector('#car');
+// Selected Elements
+let mainCar = document.querySelector('#main-car');
+let truck = document.querySelector('#car-truck');
+let van = document.querySelector('#car-van');
+let mini = document.querySelector('#car-truck-mini');
+let sedan = document.querySelector('#car-sedan');
+let lineTopLeft = document.querySelector('#st-line-1');
+let lineMidLeft = document.querySelector('#st-line-2');
+let lineBotLeft = document.querySelector('#st-line-3');
+let lineTopRight = document.querySelector('#st-line-4');
+let lineMidRight = document.querySelector('#st-line-5');
+let lineBotRight = document.querySelector('#st-line-6');
 let lines = document.querySelectorAll('.line');
-
-let linesPosition = -200;
-let carPosition = 100;
-let otherCarPosition = -200;
-let carSpawnPositions = [100, 400, 700];
 let otherCars = [truck, van, mini, sedan];
+
+// Positioning
+let carPosition = 18.75;
+let otherCarPosition = -200;
+let carSpawnPositions = [18.75, 43.75, 68.75];
+let lineTopPosition = -200;
+let lineMidPosition = 0;
+let lineBotPosition = 200;
+
+// Speed 
+let carSpeed = 1.5;
+let lineSpeed = 1.5;
 
 
 // Referenced J's div racer logic for the keyup function
-// Main car movement
 function mainCarMove() {
     document.addEventListener('keyup', function(event) {
         if (event.keyCode === 39) {
-            if (carPosition < 700) {
-                carPosition += 300;
-                mainCar.style.left = `${carPosition}px`;
+            if (carPosition < 50) {
+                carPosition += 25;
+                mainCar.style.left = `${carPosition}%`;
             }
         } else if (event.keyCode === 37) {
-            if (carPosition > 100) {
-                carPosition -= 300;
-                mainCar.style.left = `${carPosition}px`;
+            if (carPosition > 18.75) {
+                carPosition -= 25;
+                mainCar.style.left = `${carPosition}%`;
             }
         }
     });
@@ -38,9 +51,11 @@ function otherCarSpawn() {
         otherCars[i].style.top = `${otherCarPosition}px`;
     }
         currentCar = otherCars[randomInt(otherCars)];
-        currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}px`;
+        currentCar2 = otherCars[randomInt(otherCars)];
+        currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
+        currentCar2.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
         otherCarMove();
-        setTimeout(otherCarSpawn, 5000);
+        var interval = setTimeout(otherCarSpawn, 5000);
     } 
 
 otherCarSpawn();
@@ -49,31 +64,51 @@ otherCarSpawn();
 function otherCarMove() {
     // Request Animation Resource https://www.youtube.com/watch?v=rNsC1VI9388
     let animate = window.requestAnimationFrame(otherCarMove);
-    
     if (otherCarPosition > 850) {
         otherCarPosition = -200;
         cancelAnimationFrame(animate);
     } else {
-        currentCar.style.top = `${otherCarPosition += 5}px`;
+        currentCar.style.top = `${otherCarPosition += carSpeed}px`;
     }
     checkCollision();
+}
+
+// Street line movement
+function streetLineMove() {
+    let animate = window.requestAnimationFrame(streetLineMove);
+    if (lineTopPosition > 400) {
+        lineTopPosition = -200;
+    } else {
+        lineTopLeft.style.top = `${lineTopPosition += lineSpeed}px`;
+        lineTopRight.style.top = `${lineTopPosition += lineSpeed}px`;
+    }  
+    if (lineMidPosition > 400) {
+        lineMidPosition = -200;
+    } else {
+        lineMidLeft.style.top = `${lineMidPosition += lineSpeed}px`;
+        lineMidRight.style.top = `${lineMidPosition += lineSpeed}px`;
+    }  
+    if (lineBotPosition > 400) {
+        lineBotPosition = -200;
+    } else {
+        lineBotLeft.style.top = `${lineBotPosition += lineSpeed}px`;
+        lineBotRight.style.top = `${lineBotPosition += lineSpeed}px`;
+    }  
+}
+
+streetLineMove();
+
+// Collision checker
+function checkCollision() {
+    if (otherCarPosition === 480 && currentCar.style.left === mainCar.style.left) {
+        currentCar.style.display = 'none';
+        mainCar.style.display = 'none';
+        console.log(`Don't drink and drive folks!`);
+        alert('Damnnnnnnn, You wrecked!');
+    }
 }
 
 // Random integer function that takes an array
 function randomInt(arr) {
     return Math.floor(Math.random() * arr.length);
 }
-
-// Street line movement
-function streetMove() {
-    let animate = window.requestAnimationFrame(streetMove);
-    for (let i = 0; i < lines.length; i++) {
-        if (linesPosition > 30) {
-            linesPosition = -200;
-        } else {
-            lines[i].style.top = `${linesPosition += 0.5}px`;
-        }  
-    }  
-}
-
-streetMove();
