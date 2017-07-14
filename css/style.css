@@ -36,16 +36,16 @@ body {
     min-width: 100%;
 }
 
-#st-line-1 {
+#st-line-1, #st-line-4 {
     top: -200px;
 }
 
-#st-line-2 {
-    top: 75px;
+#st-line-2, #st-line-5 {
+    top: 0px;
 }
 
-#st-line-3 {
-    top: 275px;
+#st-line-3, #st-line-6 {
+    top: 200px;
 }
 
 .line {
@@ -60,7 +60,7 @@ body {
     height: auto;
     width: 100px;
     position: absolute;
-    bottom: 10px;
+    bottom: 5%;
     left: 18.75%;
     box-sizing: border-box;
     display: flex;
@@ -68,7 +68,17 @@ body {
     transition: 1000ms;
 }
 
-#main-car img, #car img {
+img {
     height: 100%;
     width: 100%;
+}
+
+#car-truck, #car-van,
+#car-truck-mini, #car-sedan {
+    height: auto;
+    width: 100px;
+    top: -200px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
 }
