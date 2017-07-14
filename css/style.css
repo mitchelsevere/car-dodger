@@ -3,63 +3,72 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #F0E68C;
+    width: 100%;
+    background: #689F38; 
 }
 
-#game-screen {
-    width: 900px;
-    height: 800px;
+#container {
+    height: 95vh;
+    min-width: 100%;
     display: flex;
+    justify-content: center;
     position: relative;
-    box-sizing: border-box;
     overflow: hidden;
 }
 
-.street {
-    width: 300px;
-    height: 800px;
-    background: #FFA07A;
+.road {
+    background: #616161;
+    min-width: 25%;
+    height: 95vh;  
 }
 
-.street-line {
-    height: 900px;
-    width: 6px;
-    display: flex;
-    background: #FFA07A;
-    flex-direction: column;
+#line-container-1 {
+    position: absolute;
+    left: 37.5%;
+    height: 95vh;
+    min-width: 100%;
+}
+
+#line-container-2 {
+    position: absolute;
+    left: 62.5%;
+    height: 95vh;
+    min-width: 100%;
+}
+
+#st-line-1 {
+    top: -200px;
+}
+
+#st-line-2 {
+    top: 75px;
+}
+
+#st-line-3 {
+    top: 275px;
 }
 
 .line {
-    background: #F4D03F;
-    height: 500px;
-    width: 6px;
-    margin-top: 5px;
-    position: relative;
+    height: 30vh;
+    position: absolute;
+    width: 1.5%;
+    background: #FFF;
+    opacity: 0.7;
 }
 
-#audi {
-    height: 180px;
+#main-car {
+    height: auto;
     width: 100px;
     position: absolute;
     bottom: 10px;
-    left: 100px;
+    left: 18.75%;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     transition: 1000ms;
 }
 
-.cars img {
-    height: 180px;
-    width: auto;
-}
-
-#truck, #mini-van, #mini-truck, #car {
-    height: 180px;
-    width: 100px;
-    position: absolute;
-    bottom: 10px;
-    left: 100px;
-    display: flex;
-    justify-content: center;
+#main-car img, #car img {
+    height: 100%;
+    width: 100%;
 }
