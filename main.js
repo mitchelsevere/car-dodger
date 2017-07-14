@@ -15,15 +15,15 @@ let otherCars = [truck, van, mini, sedan];
 
 // Positioning
 let carPosition = 16; // Main Car Starting Position // X-Axis
-let otherCarPosition = -300; // Y-Axis
+let otherCarPosition = -100; // Y-Axis
 let carSpawnPositions = [16, 42, 68]; // X-Axis
 let lineTopPosition = -300;
 let lineMidPosition = 100;
 let lineBotPosition = 500;
 
 // Speed 
-let carSpeed = 1.5;
-let lineSpeed = 1.5;
+let carSpeed = 0.5;
+let lineSpeed = 2.0;
 
 // Counter 
 let time = 0;
@@ -35,8 +35,11 @@ let timer = setInterval(function() {
     score++;
     console.log(`Timer: ${time}`);
     console.log(`Score: ${score}`);
-    if (time % 10 === 0) {
-        console.log('Hi Nik. You look good!');
+    if (time % 30 === 0) {
+        carSpeed += 0.5;
+        lineSpeed += 1;
+        score += 100;
+        alert('Level: 2');
     }
 }, 1000);
 
@@ -71,34 +74,42 @@ mainCarMove();
 // Spawn car
 function otherCarSpawn() {
     for (let i = 0; i < otherCars.length; i++) {
-        otherCars[i].style.top = `${otherCarPosition}px`;
+        otherCars[i].style.top = `${otherCarPosition}%`;
         otherCars[i].style.display = 'none';
     }
         currentCar = otherCars[randomInt(otherCars)];
         currentCar.style.display = 'flex';
         currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
-        // console.log('New car alert!');
+        currentCar2 = otherCars[randomInt(otherCars)];
+        currentCar2.style.display = 'flex';
+        currentCar2.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
 
-        var interval = setTimeout(otherCarSpawn, 5000);
+        if (currentCar.style.left === currentCar2.style.left) {
+            currentCar2.style.display = 'none';
+        }
+    otherCarMove();
+        var interval = setTimeout(otherCarSpawn, 6000);
     } 
 
 otherCarSpawn();
 
 // Car traffic movement
 function otherCarMove() {
-    // Request Animation Resource https://www.youtube.com/watch?v=rNsC1VI9388
+    // Request Animation Frame Resource https://www.youtube.com/watch?v=rNsC1VI9388
     let animate = window.requestAnimationFrame(otherCarMove);
-    if (otherCarPosition > 900) {
-        otherCarPosition = -300;
+    if (otherCarPosition > 100) {
+        otherCarPosition = -100;
         cancelAnimationFrame(animate);
     } else {
-        currentCar.style.top = `${otherCarPosition += carSpeed}px`;
+        currentCar.style.top = `${otherCarPosition += carSpeed}%`;
+        currentCar2.style.top = `${otherCarPosition += carSpeed}%`;
     }
     checkCollision();
 }
 
 // Street line movement
 function streetLineMove() {
+    // Line Movement Resource https://www.youtube.com/watch?v=oWaGkW1YDmk
     let animate = window.requestAnimationFrame(streetLineMove);
     if (lineTopPosition > 900) {
         lineTopPosition = -300;
@@ -124,17 +135,20 @@ streetLineMove();
 
 // Collision checker
 function checkCollision() {
-    if (otherCarPosition === 480 && currentCar.style.left === mainCar.style.left) {
-        currentCar.style.display = 'none';
-        mainCar.style.display = 'none';
+    if (otherCarPosition >= 35 && otherCarPosition < 60 && currentCar.style.left === mainCar.style.left) {
+        gameOver();
         console.log(`Don't drink and drive folks!`);
-        alert('Damnnnnnnn, You wrecked!');
     }
 }
 
 // Random integer function that takes an array
 function randomInt(arr) {
     return Math.floor(Math.random() * arr.length);
+}
+
+function gameOver() {
+    alert('Game Over');
+    console.log(score);
 }
 
 
