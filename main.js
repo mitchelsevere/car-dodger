@@ -13,6 +13,7 @@ let otherCars = [truck, van, mini, sedan];
 
 
 // Referenced J's div racer logic for the keyup function
+// Main car movement
 function mainCarMove() {
     document.addEventListener('keyup', function(event) {
         if (event.keyCode === 39) {
@@ -31,6 +32,7 @@ function mainCarMove() {
 
 mainCarMove();
 
+// Spawn car
 function otherCarSpawn() {
     for (let i = 0; i < otherCars.length; i++) {
         otherCars[i].style.top = `${otherCarPosition}px`;
@@ -43,7 +45,7 @@ function otherCarSpawn() {
 
 otherCarSpawn();
 
-
+// Car traffic movement
 function otherCarMove() {
     // Request Animation Resource https://www.youtube.com/watch?v=rNsC1VI9388
     let animate = window.requestAnimationFrame(otherCarMove);
@@ -57,11 +59,12 @@ function otherCarMove() {
     checkCollision();
 }
 
+// Random integer function that takes an array
 function randomInt(arr) {
     return Math.floor(Math.random() * arr.length);
 }
 
-
+// Street line movement
 function streetMove() {
     let animate = window.requestAnimationFrame(streetMove);
     for (let i = 0; i < lines.length; i++) {
