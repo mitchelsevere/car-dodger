@@ -29,54 +29,48 @@ function mainCarMove() {
     });
 }
 
-    function otherCarSpawn() {
-        for (let i = 0; i < otherCars.length; i++) {
-            otherCars[i].style.top = `${otherCarPosition}px`;
-        }
+mainCarMove();
+
+function otherCarSpawn() {
+    for (let i = 0; i < otherCars.length; i++) {
+        otherCars[i].style.top = `${otherCarPosition}px`;
+    }
         currentCar = otherCars[randomInt(otherCars)];
         currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}px`;
         otherCarMove();
-        setTimeout(otherCarSpawn, 8000);
+        setTimeout(otherCarSpawn, 5000);
     } 
 
 otherCarSpawn();
 
 
-    function otherCarMove() {
-        // Request Animation Resource https://www.youtube.com/watch?v=rNsC1VI9388
-        let animate = window.requestAnimationFrame(otherCarMove);
-        
-        if (otherCarPosition > 850) {
-            otherCarPosition = -200;
-            cancelAnimationFrame(animate);
+function otherCarMove() {
+    // Request Animation Resource https://www.youtube.com/watch?v=rNsC1VI9388
+    let animate = window.requestAnimationFrame(otherCarMove);
+    
+    if (otherCarPosition > 850) {
+        otherCarPosition = -200;
+        cancelAnimationFrame(animate);
+    } else {
+        currentCar.style.top = `${otherCarPosition += 5}px`;
+    }
+    checkCollision();
+}
+
+function randomInt(arr) {
+    return Math.floor(Math.random() * arr.length);
+}
+
+
+function streetMove() {
+    let animate = window.requestAnimationFrame(streetMove);
+    for (let i = 0; i < lines.length; i++) {
+        if (linesPosition > 30) {
+            linesPosition = -200;
         } else {
-            currentCar.style.top = `${otherCarPosition += 5}px`;
-        }
-        checkCollision();
-    }
-
-    function randomInt(arr) {
-       return Math.floor(Math.random() * arr.length);
-    }
-
-    mainCarMove();
-
-    function streetMove() {
-        let animate = window.requestAnimationFrame(streetMove);
-        for (let i = 0; i < lines.length; i++) {
-            if (linesPosition > 30) {
-                linesPosition = -200;
-            } else {
-                lines[i].style.top = `${linesPosition += 0.5}px`;
-            }  
+            lines[i].style.top = `${linesPosition += 0.5}px`;
         }  
-    }
+    }  
+}
 
-    streetMove();
-
-    function checkCollision() {
-        if (otherCarPosition === 440 && currentCar.style.left === mainCar.style.left) {
-            console.log('collision');
-            alert('Collision');
-        }
-    }
+streetMove();
