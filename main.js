@@ -39,7 +39,6 @@ let timer = setInterval(function() {
         carSpeed += 0.5;
         lineSpeed += 1;
         score += 100;
-        alert('Level: 2');
     }
 }, 1000);
 
@@ -146,9 +145,11 @@ function randomInt(arr) {
     return Math.floor(Math.random() * arr.length);
 }
 
+// Reload Resource https://www.w3schools.com/jsref/met_loc_reload.asp
 function gameOver() {
     alert('Game Over');
     console.log(score);
+    location.reload();
 }
 
 
