@@ -63,7 +63,6 @@ body {
     position: absolute;
     bottom: 5%;
     left: 16%;
-    box-sizing: border-box;
     display: flex;
     justify-content: center;
     transition: 1000ms;
@@ -78,8 +77,9 @@ img {
 #car-truck-mini, #car-sedan {
     height: auto;
     width: 18vw;
-    top: -200px;
     position: absolute;
+    top: -100%;
+    left: 16%;
     display: flex;
     justify-content: center;
 }
