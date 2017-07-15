@@ -27,9 +27,9 @@
 * Dashed lines 
 * Cars Swerving
 * Car graphics
-
+* Speed Increase
+* Collision detection
 
 
 ***What's not working / added yet***
-* Speed Increase
-* Collision detection
+
