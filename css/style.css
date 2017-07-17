@@ -96,6 +96,7 @@ img {
     transition: 500ms;
 }
 
+/*https://www.vecteezy.com/vector-art/148998-towing-truck-transportation-emergency-car-vector-illustration*/
 #play-again {
     background: url('../images/crash-screen.png');
     background-size: cover;
@@ -112,10 +113,13 @@ img {
     font-weight: bold;
     font-size: 2em;
     color: #25373D;
+    transition: 1000ms ease;
 }
 
 #play-again button {
     border: none;
+    outline: none;
+    cursor: pointer;
     border-radius: 5px;
     margin: 2vh;
     padding: 3vh 7vh;
@@ -134,3 +138,26 @@ img {
     background: #E7E7E7;
 }
 
+#score {
+    padding: 20px;
+    font-weight: bold;
+    font-size: 1.3em;
+    background: #83D6DE;
+    color: #25373D;
+    position: absolute;
+    top: 0;
+    left: 1%;
+    border-radius: 5px;
+}
+
+#level {
+    padding: 20px;
+    font-weight: bold;
+    font-size: 1.3em;
+    background: #83D6DE;
+    color: #25373D;
+    position: absolute;
+    top: 10%;
+    left: 1%;
+    border-radius: 5px;
+}
