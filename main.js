@@ -12,7 +12,11 @@ let lineMidRight = document.querySelector('#st-line-5');
 let lineBotRight = document.querySelector('#st-line-6');
 let lines = document.querySelectorAll('.line');
 let otherCars = [van, buggy, sedan];
+
+// Display Elements
 let playAgain = document.querySelector('#play-again');
+let scoreboard = document.querySelector('#score');
+let levelboard = document.querySelector('#level');
 
 // Positioning
 let mainCarPosition = 27; // Main Car Starting Position // X-Axis
@@ -34,7 +38,7 @@ let lineSpeed = 0.5;
 // Counter 
 let time = 0;
 let score = 0;
-
+let level = 1;
 
 
 // Score and Speed Timer
@@ -42,11 +46,14 @@ function timer() {
     time++;
     score++;
     console.log(`Timer: ${time}`);
+    scoreboard.innerHTML = `<h2>Score: ${score}</h2>`;
+    levelboard.innerHTML = `<h2>Level: ${level}</h2>`;
     console.log(`Score: ${score}`);
     if (time % 45 === 0) {
         carSpeed += 0.2;
         lineSpeed += 0.2;
         score += 100;
+        level++;
     }
     timeout = setTimeout(timer, 1000);
 }
@@ -83,6 +90,7 @@ function mainCarMove() {
 mainCarMove();
 
 // Game movement for AI cars and Street Lines
+// Request Animation Resource https://www.youtube.com/watch?v=rNsC1VI9388
 function animate() {
     carsMove(van, sedan, buggy);
     streetLineMove();
@@ -135,9 +143,9 @@ function streetLineMove() {
 
 // Collision checker
 function checkCollision() {
-    if (carPos > 48 && carPos < 60 && van.style.left === mainCar.style.left || 
-        carPos2 > 48 && carPos2 < 60 && buggy.style.left === mainCar.style.left ||  
-        carPos3 > 48 && carPos3 < 60 && sedan.style.left === mainCar.style.left) {
+    if (carPos > 47 && carPos < 60 && van.style.left === mainCar.style.left || 
+        carPos2 > 47 && carPos2 < 60 && sedan.style.left === mainCar.style.left ||  
+        carPos3 > 47 && carPos3 < 60 && buggy.style.left === mainCar.style.left) {
             setTimeout(function() {
                 crash.style.display = 'block';
                 console.log(`Don't drink and drive folks!`);
@@ -149,7 +157,9 @@ function checkCollision() {
 function gameOver() {
     clearTimeout(timeout);
     cancelAnimationFrame(movement);
-    playAgain.style.display = 'block';
+    setTimeout(function() {
+        playAgain.style.display = 'block';
+    }, 200);
 }
 
 // Random integer function that takes an array
