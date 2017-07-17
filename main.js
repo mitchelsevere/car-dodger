@@ -1,3 +1,4 @@
+
 // Selected Elements
 let mainCar = document.querySelector('#main-car');
 let van = document.querySelector('#car-van');
@@ -14,6 +15,7 @@ let lines = document.querySelectorAll('.line');
 let otherCars = [van, buggy, sedan];
 
 // Display Elements
+let container = document.querySelector('#container');
 let playAgain = document.querySelector('#play-again');
 let scoreboard = document.querySelector('#score');
 let levelboard = document.querySelector('#level');
@@ -40,6 +42,12 @@ let time = 0;
 let score = 0;
 let level = 1;
 
+function startGame() {
+    setTimeout(function() {
+        container.style.display = 'flex';
+        landing.style.display = 'none';
+    }, 500);
+}
 
 // Score and Speed Timer
 function timer() {
@@ -166,3 +174,14 @@ function gameOver() {
 function randomInt(arr) {
     return Math.floor(Math.random() * arr.length);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector('#start').addEventListener('click', startGame);
+  document.querySelector('#again').addEventListener('click', function() {
+      location.reload()
+  });
+  document.querySelector('#exit').addEventListener('click', function() {
+      location.reload()
+  });
+  
+});
