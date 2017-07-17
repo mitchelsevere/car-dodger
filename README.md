@@ -36,7 +36,8 @@
             mainCar.style.top = `${65}vh`;
         }, 500);
     });
-} // end of mainCarMove```
+}```
+
 > I also had issues with the cars over spawning but nesting my functions and using requestanimationframe helped allieviate that problem
 
 ## The Making of Car Dodge
