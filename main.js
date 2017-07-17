@@ -12,6 +12,7 @@ let lineMidRight = document.querySelector('#st-line-5');
 let lineBotRight = document.querySelector('#st-line-6');
 let lines = document.querySelectorAll('.line');
 let otherCars = [van, buggy, sedan];
+let playAgain = document.querySelector('#play-again');
 
 // Positioning
 let mainCarPosition = 27; // Main Car Starting Position // X-Axis
@@ -47,7 +48,7 @@ function timer() {
         lineSpeed += 0.2;
         score += 100;
     }
-    setTimeout(timer, 1000);
+    timeout = setTimeout(timer, 1000);
 }
 
 timer();
@@ -85,8 +86,8 @@ mainCarMove();
 function animate() {
     carsMove(van, sedan, buggy);
     streetLineMove();
-    checkCollision();
     movement = requestAnimationFrame(animate);
+    checkCollision();
 }
 
 animate();
@@ -141,7 +142,14 @@ function checkCollision() {
                 crash.style.display = 'block';
                 console.log(`Don't drink and drive folks!`);
             }, 50);
+            gameOver();
     }
+}
+
+function gameOver() {
+    clearTimeout(timeout);
+    cancelAnimationFrame(movement);
+    playAgain.style.display = 'block';
 }
 
 // Random integer function that takes an array
