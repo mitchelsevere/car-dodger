@@ -2,7 +2,7 @@
 let mainCar = document.querySelector('#main-car');
 let truck = document.querySelector('#car-truck');
 let van = document.querySelector('#car-van');
-let mini = document.querySelector('#car-truck-mini');
+let buggy = document.querySelector('#car-buggy');
 let sedan = document.querySelector('#car-sedan');
 let crash = document.querySelector('#explosion');
 let lineTopLeft = document.querySelector('#st-line-1');
@@ -12,34 +12,37 @@ let lineTopRight = document.querySelector('#st-line-4');
 let lineMidRight = document.querySelector('#st-line-5');
 let lineBotRight = document.querySelector('#st-line-6');
 let lines = document.querySelectorAll('.line');
-let otherCars = [truck, van, mini, sedan];
+let otherCars = [truck, van, buggy, sedan];
 
 // Positioning
-let mainCarPosition = 16; // Main Car Starting Position // X-Axis
-let carPosition1 = -100; // Y-Axis
-let carPosition2 = -125; // Y-Axis
-let carSpawnPositions = [16, 42, 68]; // X-Axis
-let lineTopPosition = -300;
-let lineMidPosition = 100;
-let lineBotPosition = 500;
+let mainCarPosition = 27; // Main Car Starting Position // X-Axis
+let carPos = -100; // Y-Axis
+let carPos2 = -170; // Y-Axis
+let carPos3 = -230; // Y-Axis
+let carSpawnPos = [27, 47, 67]; // X-Axis
+let lineTopPosition = -50; // Lines Y-Axis
+let lineMidPosition = 0; // Lines Y-Axis
+let lineBotPosition = 50; // Lines Y-Axis
 
 // Speed 
-let carSpeed = 0.5;
-let lineSpeed = 2.0;
+let carSpeed = 0.4;
+let lineSpeed = 0.5;
 
 // Counter 
 let time = 0;
 let score = 0;
 
-/**** FUNCTIONS *****/ 
+
+
+// Score and Speed Timer
 function timer() {
     time++;
     score++;
     console.log(`Timer: ${time}`);
     console.log(`Score: ${score}`);
-    if (time % 30 === 0) {
-        carSpeed += 0.5;
-        lineSpeed += 1;
+    if (time % 45 === 0) {
+        carSpeed += 0.2;
+        lineSpeed += 0.2;
         score += 100;
     }
     setTimeout(timer, 1000);
@@ -48,19 +51,20 @@ function timer() {
 timer();
 
 // Referenced J's div racer for the keyup function
+// Game movement for player car
 function mainCarMove() {
     mainCar.style.left = `${mainCarPosition}%`;
     document.addEventListener('keyup', function(event) {
         if (event.keyCode === 39) {
             if (mainCarPosition < 50) {
-                mainCarPosition += 26;
+                mainCarPosition += 20;
                 mainCar.style.left = `${mainCarPosition}%`;
                 mainCar.style.top = `${60}vh`;
                 mainCar.style.transform = 'rotate(45deg)';
             }
         } else if (event.keyCode === 37) {
-            if (mainCarPosition > 16) {
-                mainCarPosition -= 26;
+            if (mainCarPosition > 27) {
+                mainCarPosition -= 20;
                 mainCar.style.left = `${mainCarPosition}%`;
                 mainCar.style.top = `${60}vh`;
                 mainCar.style.transform = 'rotate(-45deg)';
@@ -71,110 +75,70 @@ function mainCarMove() {
             mainCar.style.top = `${65}vh`;
         }, 500);
     });
-}
+} // end of mainCarMove
 
 mainCarMove();
 
-// Spawn car
-function otherCarSpawn() {
-    // for (let i = 0; i < otherCars.length; i++) {
-    //     otherCars[i].style.top = `${carPosition2}vh`;
-    //     otherCars[i].style.display = 'none';
-    // }
+// Game movement for AI cars and Street Lines
+function animate() {
+    carsMove(van, sedan, buggy);
+    streetLineMove();
+    movement = requestAnimationFrame(animate);
+}
 
-    traffic = setTimeout(function() {
-        currentCar = otherCars[randomInt(otherCars)];
-        currentCar.style.display = 'block';
-        currentCar.style.top = `${carPosition1}vh`;
-        currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
-        
-        currentCar2 = otherCars[randomInt(otherCars)];
-        currentCar2.style.display = 'block';
-        currentCar2.style.top = `${carPosition2}vh`;
-        currentCar2.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
-
-        if (currentCar.style.left === currentCar2.style.left) {
-            currentCar2.style.display = 'none';
-        }
-
-        otherCarMove();
-        console.log('Help Me!!!!');
-        otherCarSpawn();
-    }, 5000);
-} 
-
-otherCarSpawn();
+animate();
 
 // Car traffic movement
-function otherCarMove() {
-    // Request Animation Frame Resource https://www.youtube.com/watch?v=rNsC1VI9388
-    // let animate = window.requestAnimationFrame(otherCarMove);
-    setInterval(function() {
-        if (carPosition1 > 100 && carPosition2 > 100) {
-            cancelAnimationFrame(animate);
-        } else if (carPosition1 > 100) {
-            carPosition1 = -100;
-            // currentCar.style.display = 'none';
-            // console.log('Display: "None"');
-        } else if (carPosition2 > 100) {
-            carPosition2 = -125;
-            // currentCar2.style.display = 'none';
-            // console.log('Display: "None"');
-        } else {
-            currentCar.style.top = `${carPosition1 += carSpeed}vh`;
-            currentCar2.style.top = `${carPosition2 += carSpeed}vh`;
-        }
-        console.log('Check');
-        checkCollision();
-    }, 5000);
-}
+function carsMove(car, car2, car3) {
+    car.style.top = `${carPos += carSpeed}vh`;
+    car2.style.top = `${carPos2 += carSpeed}vh`;
+    car3.style.top = `${carPos3 += carSpeed}vh`;
+
+    if (carPos > 100) {
+        carPos = -100; 
+        car.style.left = `${carSpawnPos[randomInt(carSpawnPos)]}%`;
+    } else if (carPos2 > 100) {
+        carPos2 = -150;
+        car2.style.left = `${carSpawnPos[randomInt(carSpawnPos)]}%`;
+    } else if (carPos3 > 100) {
+        carPos3 = -200;
+        car3.style.left = `${carSpawnPos[randomInt(carSpawnPos)]}%`;
+    } 
+} // end of carsMove
 
 // Street line movement
 function streetLineMove() {
     // Line Movement Resource https://www.youtube.com/watch?v=oWaGkW1YDmk
-    let animate = window.requestAnimationFrame(streetLineMove);
-    if (lineTopPosition > 900) {
-        lineTopPosition = -300;
+    if (lineTopPosition > 100) {
+        lineTopPosition = -50;
     } else {
-        lineTopLeft.style.top = `${lineTopPosition += lineSpeed}px`;
-        lineTopRight.style.top = `${lineTopPosition += lineSpeed}px`;
+        lineTopLeft.style.top = `${lineTopPosition += lineSpeed}vh`;
+        lineTopRight.style.top = `${lineTopPosition += lineSpeed}vh`;
     }  
-    if (lineMidPosition > 900) {
-        lineMidPosition = -300;
+    if (lineMidPosition > 100) {
+        lineMidPosition = -50;
     } else {
-        lineMidLeft.style.top = `${lineMidPosition += lineSpeed}px`;
-        lineMidRight.style.top = `${lineMidPosition += lineSpeed}px`;
+        lineMidLeft.style.top = `${lineMidPosition += lineSpeed}vh`;
+        lineMidRight.style.top = `${lineMidPosition += lineSpeed}vh`;
     }  
-    if (lineBotPosition > 900) {
-        lineBotPosition = -300;
+    if (lineBotPosition > 100) {
+        lineBotPosition = -50;
     } else {
-        lineBotLeft.style.top = `${lineBotPosition += lineSpeed}px`;
-        lineBotRight.style.top = `${lineBotPosition += lineSpeed}px`;
+        lineBotLeft.style.top = `${lineBotPosition += lineSpeed}vh`;
+        lineBotRight.style.top = `${lineBotPosition += lineSpeed}vh`;
     }  
-}
+} // end of streetLineMove
 
-streetLineMove();
-
-// Collision checker
-function checkCollision() {
-    if (carPosition1 === 40 && currentCar.style.left === mainCar.style.left ||
-        carPosition2 === 40 && currentCar2.style.left === mainCar.style.left) {
-            crash.style.display = 'block';
-            gameOver();
-            console.log(`Don't drink and drive folks!`);
-    }
-}
+// // Collision checker
+// function checkCollision() {
+//     if (carPosition1 === 40 && currentCar.style.left === mainCar.style.left) {
+//             crash.style.display = 'block';
+//             gameOver();
+//             console.log(`Don't drink and drive folks!`);
+//     }
+// }
 
 // Random integer function that takes an array
 function randomInt(arr) {
     return Math.floor(Math.random() * arr.length);
 }
-
-// Reload Resource https://www.w3schools.com/jsref/met_loc_reload.asp
-function gameOver() {
-    console.log(score);
-}
-
-
-
-
