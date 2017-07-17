@@ -1,6 +1,5 @@
 // Selected Elements
 let mainCar = document.querySelector('#main-car');
-let truck = document.querySelector('#car-truck');
 let van = document.querySelector('#car-van');
 let buggy = document.querySelector('#car-buggy');
 let sedan = document.querySelector('#car-sedan');
@@ -12,7 +11,7 @@ let lineTopRight = document.querySelector('#st-line-4');
 let lineMidRight = document.querySelector('#st-line-5');
 let lineBotRight = document.querySelector('#st-line-6');
 let lines = document.querySelectorAll('.line');
-let otherCars = [truck, van, buggy, sedan];
+let otherCars = [van, buggy, sedan];
 
 // Positioning
 let mainCarPosition = 27; // Main Car Starting Position // X-Axis
@@ -20,6 +19,9 @@ let carPos = -100; // Y-Axis
 let carPos2 = -170; // Y-Axis
 let carPos3 = -230; // Y-Axis
 let carSpawnPos = [27, 47, 67]; // X-Axis
+van.style.left = `${carSpawnPos[randomInt(carSpawnPos)]}%`;
+buggy.style.left = `${carSpawnPos[randomInt(carSpawnPos)]}%`;
+sedan.style.left = `${carSpawnPos[randomInt(carSpawnPos)]}%`;
 let lineTopPosition = -50; // Lines Y-Axis
 let lineMidPosition = 0; // Lines Y-Axis
 let lineBotPosition = 50; // Lines Y-Axis
@@ -83,6 +85,7 @@ mainCarMove();
 function animate() {
     carsMove(van, sedan, buggy);
     streetLineMove();
+    checkCollision();
     movement = requestAnimationFrame(animate);
 }
 
@@ -129,14 +132,17 @@ function streetLineMove() {
     }  
 } // end of streetLineMove
 
-// // Collision checker
-// function checkCollision() {
-//     if (carPosition1 === 40 && currentCar.style.left === mainCar.style.left) {
-//             crash.style.display = 'block';
-//             gameOver();
-//             console.log(`Don't drink and drive folks!`);
-//     }
-// }
+// Collision checker
+function checkCollision() {
+    if (carPos > 48 && carPos < 60 && van.style.left === mainCar.style.left || 
+        carPos2 > 48 && carPos2 < 60 && buggy.style.left === mainCar.style.left ||  
+        carPos3 > 48 && carPos3 < 60 && sedan.style.left === mainCar.style.left) {
+            setTimeout(function() {
+                crash.style.display = 'block';
+                console.log(`Don't drink and drive folks!`);
+            }, 50);
+    }
+}
 
 // Random integer function that takes an array
 function randomInt(arr) {
