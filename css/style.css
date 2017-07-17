@@ -93,7 +93,7 @@ img {
     height: auto;
     width: 25vw;
     display: none; 
-    transition: 1000ms;
+    transition: 500ms;
 }
 
 #game-over {
