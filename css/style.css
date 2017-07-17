@@ -4,65 +4,69 @@ body {
     align-items: center;
     height: 100vh;
     width: 100%;
-    background: #689F38; 
+    background: #B7B9C9; 
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 #container {
     height: 95vh;
-    min-width: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     position: relative;
     overflow: hidden;
 }
 
 .road {
-    background: #616161;
-    min-width: 25%;
+    background: #36474E;
+    width: 20%;
     height: 95vh;  
 }
 
-#line-container-1 {
-    position: absolute;
-    left: 37.5%;
-    height: 95vh;
-    min-width: 100%;
+#one {
+    border-left: 10px solid #F4D03F;
+    box-sizing: border-box;
 }
 
-#line-container-2 {
+#two {
+    border-right: 10px solid #F4D03F;
+    box-sizing: border-box;
+}
+
+.line-1, .line-2 {
     position: absolute;
-    left: 62.5%;
-    height: 95vh;
-    min-width: 100%;
+    height: 30vh;
+    width: 1.5%;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.line-1 {  
+    left: 39.25%; 
+}
+
+.line-2 {
+    left: 59.25%;
 }
 
 #st-line-1, #st-line-4 {
-    top: -300px;
+    top: -100vh;
 }
 
 #st-line-2, #st-line-5 {
-    top: 100px;
+    top: 0vh;
 }
 
 #st-line-3, #st-line-6 {
-    top: 500px;
+    top: 100vh;
 }
-
-.line {
-    height: 30vh;
-    position: absolute;
-    width: 1.5%;
-    background: #FFF;
-    opacity: 0.7;
-
-}
-
+/*https://www.vecteezy.com/vector-art/89096-aerial-view-vector-car-icons*/
 #main-car {
     height: auto;
-    width: 18vw;
+    width: 6vw;
     position: absolute;
-    bottom: 5%;
-    left: 16%;
+    top: 65vh;
+    left: 27%;
     display: flex;
     justify-content: center;
     transition: 1000ms;
@@ -73,13 +77,33 @@ img {
     width: 100%;
 }
 
-#car-truck, #car-van,
-#car-truck-mini, #car-sedan {
+#car-truck, #car-buggy,
+#car-van, #car-sedan {
     height: auto;
-    width: 18vw;
+    width: 6vw;
     position: absolute;
-    top: -100%;
-    left: 16%;
+    top: -100vh;
+    left: 27%;
     display: flex;
     justify-content: center;
+}
+
+#explosion {
+    position: absolute;
+    height: auto;
+    width: 25vw;
+    display: none; 
+    transition: 1000ms;
+}
+
+#game-over {
+    background: #B7B9C9;
+    height: 30vh;
+    width: 30vh;
+    padding: 20px;
+    position: absolute;
+    box-sizing: border-box;
+    margin-left: 1vw;
+    z-index: 3;
+    display: none;
 }
