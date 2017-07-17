@@ -25,12 +25,12 @@ body {
 }
 
 #one {
-    border-left: 10px solid #F4D03F;
+    border-left: 10px solid #E5A557;
     box-sizing: border-box;
 }
 
 #two {
-    border-right: 10px solid #F4D03F;
+    border-right: 10px solid #E5A557;
     box-sizing: border-box;
 }
 
@@ -96,14 +96,41 @@ img {
     transition: 500ms;
 }
 
-#game-over {
-    background: #B7B9C9;
-    height: 30vh;
-    width: 30vh;
+#play-again {
+    background: url('../images/crash-screen.png');
+    background-size: cover;
+    height: 50vh;
+    width: 80vh;
     padding: 20px;
     position: absolute;
     box-sizing: border-box;
     margin-left: 1vw;
+    text-align: center;
     z-index: 3;
     display: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 2em;
+    color: #25373D;
 }
+
+#play-again button {
+    border: none;
+    border-radius: 5px;
+    margin: 2vh;
+    padding: 3vh 7vh;
+    background: #83D6DE;
+    color: #25373D;
+    font-size: 1.2em;
+    transition: 500ms ease;
+}
+
+#play-again button:hover {
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 2vh;
+    padding: 3vh 7vh;
+    background: #E7E7E7;
+}
+
