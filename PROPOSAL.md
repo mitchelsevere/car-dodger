@@ -40,3 +40,4 @@
 
 ## Links and Resources
 > None so far. HTML, CSS, and Vanilla JS for now.
+> Linked my resources as comments in my JS and CSS
