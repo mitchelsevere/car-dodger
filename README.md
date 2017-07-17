@@ -13,7 +13,8 @@
 ### Notes on Game Structure
 
 > Definitely messed around with moving the car left and right. Used percentages and vh so playing around with the numbers was definitely a tedious process. 
-```function mainCarMove() {
+```
+function mainCarMove() {
     mainCar.style.left = `${mainCarPosition}%`;
     document.addEventListener('keyup', function(event) {
         if (event.keyCode === 39) {
@@ -36,7 +37,8 @@
             mainCar.style.top = `${65}vh`;
         }, 500);
     });
-}```
+}
+```
 
 > I also had issues with the cars over spawning but nesting my functions and using requestanimationframe helped allieviate that problem
 
