@@ -4,6 +4,7 @@ let truck = document.querySelector('#car-truck');
 let van = document.querySelector('#car-van');
 let mini = document.querySelector('#car-truck-mini');
 let sedan = document.querySelector('#car-sedan');
+let crash = document.querySelector('#explosion');
 let lineTopLeft = document.querySelector('#st-line-1');
 let lineMidLeft = document.querySelector('#st-line-2');
 let lineBotLeft = document.querySelector('#st-line-3');
@@ -14,8 +15,9 @@ let lines = document.querySelectorAll('.line');
 let otherCars = [truck, van, mini, sedan];
 
 // Positioning
-let carPosition = 16; // Main Car Starting Position // X-Axis
-let otherCarPosition = -100; // Y-Axis
+let mainCarPosition = 16; // Main Car Starting Position // X-Axis
+let carPosition1 = -100; // Y-Axis
+let carPosition2 = -125; // Y-Axis
 let carSpawnPositions = [16, 42, 68]; // X-Axis
 let lineTopPosition = -300;
 let lineMidPosition = 100;
@@ -30,7 +32,7 @@ let time = 0;
 let score = 0;
 
 /**** FUNCTIONS *****/ 
-let timer = setInterval(function() {
+function timer() {
     time++;
     score++;
     console.log(`Timer: ${time}`);
@@ -40,30 +42,33 @@ let timer = setInterval(function() {
         lineSpeed += 1;
         score += 100;
     }
-}, 1000);
+    setTimeout(timer, 1000);
+}
+
+timer();
 
 // Referenced J's div racer for the keyup function
 function mainCarMove() {
+    mainCar.style.left = `${mainCarPosition}%`;
     document.addEventListener('keyup', function(event) {
-        
         if (event.keyCode === 39) {
-            if (carPosition < 50) {
-                carPosition += 26;
-                mainCar.style.left = `${carPosition}%`;
-                mainCar.style.bottom = `${12}%`;
+            if (mainCarPosition < 50) {
+                mainCarPosition += 26;
+                mainCar.style.left = `${mainCarPosition}%`;
+                mainCar.style.top = `${60}vh`;
                 mainCar.style.transform = 'rotate(45deg)';
             }
         } else if (event.keyCode === 37) {
-            if (carPosition > 16) {
-                carPosition -= 26;
-                mainCar.style.left = `${carPosition}%`;
-                mainCar.style.bottom = `${12}%`;
+            if (mainCarPosition > 16) {
+                mainCarPosition -= 26;
+                mainCar.style.left = `${mainCarPosition}%`;
+                mainCar.style.top = `${60}vh`;
                 mainCar.style.transform = 'rotate(-45deg)';
             }
         }
         setTimeout(function() {
             mainCar.style.transform = 'rotate(0deg)';
-            mainCar.style.bottom = `${5}%`;
+            mainCar.style.top = `${65}vh`;
         }, 500);
     });
 }
@@ -72,38 +77,56 @@ mainCarMove();
 
 // Spawn car
 function otherCarSpawn() {
-    for (let i = 0; i < otherCars.length; i++) {
-        otherCars[i].style.top = `${otherCarPosition}%`;
-        otherCars[i].style.display = 'none';
-    }
+    // for (let i = 0; i < otherCars.length; i++) {
+    //     otherCars[i].style.top = `${carPosition2}vh`;
+    //     otherCars[i].style.display = 'none';
+    // }
+
+    traffic = setTimeout(function() {
         currentCar = otherCars[randomInt(otherCars)];
-        currentCar.style.display = 'flex';
+        currentCar.style.display = 'block';
+        currentCar.style.top = `${carPosition1}vh`;
         currentCar.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
+        
         currentCar2 = otherCars[randomInt(otherCars)];
-        currentCar2.style.display = 'flex';
+        currentCar2.style.display = 'block';
+        currentCar2.style.top = `${carPosition2}vh`;
         currentCar2.style.left = `${carSpawnPositions[randomInt(carSpawnPositions)]}%`;
 
         if (currentCar.style.left === currentCar2.style.left) {
             currentCar2.style.display = 'none';
         }
-    otherCarMove();
-        var interval = setTimeout(otherCarSpawn, 6000);
-    } 
+
+        otherCarMove();
+        console.log('Help Me!!!!');
+        otherCarSpawn();
+    }, 5000);
+} 
 
 otherCarSpawn();
 
 // Car traffic movement
 function otherCarMove() {
     // Request Animation Frame Resource https://www.youtube.com/watch?v=rNsC1VI9388
-    let animate = window.requestAnimationFrame(otherCarMove);
-    if (otherCarPosition > 100) {
-        otherCarPosition = -100;
-        cancelAnimationFrame(animate);
-    } else {
-        currentCar.style.top = `${otherCarPosition += carSpeed}%`;
-        currentCar2.style.top = `${otherCarPosition += carSpeed}%`;
-    }
-    checkCollision();
+    // let animate = window.requestAnimationFrame(otherCarMove);
+    setInterval(function() {
+        if (carPosition1 > 100 && carPosition2 > 100) {
+            cancelAnimationFrame(animate);
+        } else if (carPosition1 > 100) {
+            carPosition1 = -100;
+            // currentCar.style.display = 'none';
+            // console.log('Display: "None"');
+        } else if (carPosition2 > 100) {
+            carPosition2 = -125;
+            // currentCar2.style.display = 'none';
+            // console.log('Display: "None"');
+        } else {
+            currentCar.style.top = `${carPosition1 += carSpeed}vh`;
+            currentCar2.style.top = `${carPosition2 += carSpeed}vh`;
+        }
+        console.log('Check');
+        checkCollision();
+    }, 5000);
 }
 
 // Street line movement
@@ -134,9 +157,11 @@ streetLineMove();
 
 // Collision checker
 function checkCollision() {
-    if (otherCarPosition >= 35 && otherCarPosition < 60 && currentCar.style.left === mainCar.style.left) {
-        gameOver();
-        console.log(`Don't drink and drive folks!`);
+    if (carPosition1 === 40 && currentCar.style.left === mainCar.style.left ||
+        carPosition2 === 40 && currentCar2.style.left === mainCar.style.left) {
+            crash.style.display = 'block';
+            gameOver();
+            console.log(`Don't drink and drive folks!`);
     }
 }
 
@@ -147,9 +172,7 @@ function randomInt(arr) {
 
 // Reload Resource https://www.w3schools.com/jsref/met_loc_reload.asp
 function gameOver() {
-    alert('Game Over');
     console.log(score);
-    location.reload();
 }
 
 
